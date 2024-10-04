@@ -137,7 +137,7 @@ class TweetCell: UICollectionViewCell {
     
     //MARK: Selectors
     
-    @objc func handleProfileImageTapped(){
+    @objc func handleProfileImageTapped() {
         delegate?.handleProfileImageTapped(self)
     }
     
@@ -159,8 +159,8 @@ class TweetCell: UICollectionViewCell {
     
     //MARK: helper
     
-    func configure(){
-        guard let tweet = tweet else {return}
+    func configure() {
+        guard let tweet = tweet else { return }
         let viewModel = TweetViewModel(tweet: tweet)
         
         captionLabel.text = tweet.caption
@@ -183,8 +183,8 @@ class TweetCell: UICollectionViewCell {
         return button
     }
     
-    func configureMentionHandler(){
-        captionLabel.handleMentionTap {username in
+    func configureMentionHandler() {
+        captionLabel.handleMentionTap { username in
             self.delegate?.handleFetchUser(withUsername: username)
         }
     }

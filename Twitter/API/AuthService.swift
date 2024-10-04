@@ -20,7 +20,7 @@ struct AuthService {
     //create static instance service
     static let shared = AuthService()
     
-    func logUserIn(withEmail email:String, password:String, completion:AuthDataResultCallback?) {
+    func logUserIn(withEmail email: String, password: String, completion: AuthDataResultCallback?) {
         Auth.auth().signIn(withEmail: email, password: password, completion: completion)
         print("DEBUG: Email is \(email), passward is \(password)")
     }
@@ -37,12 +37,12 @@ struct AuthService {
         let filename = NSUUID().uuidString
         let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
         
-        storageRef.putData(imageData, metadata: nil) { (meta, error) in
-            storageRef.downloadURL { (url, error) in
+        storageRef.putData(imageData, metadata: nil) { meta, error in
+            storageRef.downloadURL { url, error in
                 guard let profileImageUrl =  url?.absoluteString else { return }
                 //firebase api check sign up error
-                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                    if let error = error{
+                Auth.auth().createUser(withEmail: email, password: password) { result, error in
+                    if let error = error {
                         print("DEBUG: Error is \(error.localizedDescription)")
                         return
                     }

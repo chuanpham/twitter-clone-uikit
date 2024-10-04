@@ -12,7 +12,7 @@ import Foundation
 struct ActionSheetViewModel {
     private let user: User
    
-    var options:[ActionSheetOptions]{
+    var options: [ActionSheetOptions] {
         var results = [ActionSheetOptions]()
         
         if user.isCurrentUser {
@@ -36,7 +36,7 @@ enum ActionSheetOptions {
     case report
     case delete
     
-    var decription:String{
+    var decription: String {
         switch self {
         case .follow(let user):
             return "Follow @\(user.username)"

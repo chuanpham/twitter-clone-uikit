@@ -6,8 +6,6 @@
 //  Copyright © 2024 ChuanPham. All rights reserved.
 //
 
-//follow 功能在这里实现
-
 import UIKit
 import Firebase
 
@@ -56,7 +54,7 @@ class ProfileController: UICollectionViewController {
         checkIfUserIsFollowed()
         fetchUserStats()
     }
-    //每次view出现，bar will hide
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.barStyle = .black
@@ -66,7 +64,7 @@ class ProfileController: UICollectionViewController {
     //MARK: API
     
     func fetchTweets() {
-        TweetService.shared.fetchTweets(forUser: user) { (tweets) in
+        TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
             self.collectionView.reloadData()
         }
@@ -79,7 +77,7 @@ class ProfileController: UICollectionViewController {
     }
     
     func checkIfUserIsFollowed() {
-        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { (isFollowed) in
+        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
             self.user.isFollowed = isFollowed
             self.collectionView.reloadData()
         }
@@ -95,7 +93,6 @@ class ProfileController: UICollectionViewController {
     func fetchReplies() {
         TweetService.shared.fetchReplies(forUser: user) { tweets in
             self.replies = tweets
-            
         }
     }
     
@@ -119,7 +116,7 @@ class ProfileController: UICollectionViewController {
             let nav = UINavigationController(rootViewController: LoginController())
             nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: true, completion: nil)
-        } catch let error{
+        } catch let error {
             print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
         }
     }
@@ -153,7 +150,6 @@ extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = TweetController(tweet: currentDataSource[indexPath.row])
         navigationController?.pushViewController(controller, animated: true)
-
     }
     
 }
@@ -177,7 +173,6 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
         if currentDataSource[indexPath.row].isReply {
             height += 20
         }
-        
         
         return CGSize(width: view.frame.width, height: height)
     }
@@ -204,12 +199,12 @@ extension ProfileController: ProfileHeaderDelegate {
         }
         
         if user.isFollowed {
-            UserService.shared.unfollowUser(uid: user.uid) { (err, ref) in
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
                 self.user.isFollowed = false
                 self.collectionView.reloadData()
             }
-        }else {
-            UserService.shared.followUser(uid: user.uid) { (ref, err) in
+        } else {
+            UserService.shared.followUser(uid: user.uid) { err, ref in
                 self.user.isFollowed = true
                 self.collectionView.reloadData()
                 //follow
@@ -224,7 +219,7 @@ extension ProfileController: ProfileHeaderDelegate {
 }
 
 //MARK:EditProfileControllerDelegate
-extension ProfileController: EditProfileControllerDelegate{
+extension ProfileController: EditProfileControllerDelegate {
     func handleLogout() {
         logUserOut()
     }

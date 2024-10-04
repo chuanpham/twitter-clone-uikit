@@ -18,7 +18,7 @@ class NotificationCell: UITableViewCell {
     //MARK: properties
     
     var notification:Notification? {
-        didSet{configure()}
+        didSet { configure() }
     }
     
     weak var delegate: NotificationCellDelegate?
@@ -84,11 +84,11 @@ class NotificationCell: UITableViewCell {
     
     //MARK: Selectors
     
-    @objc func handleProfileImageTapped(){
+    @objc func handleProfileImageTapped() {
         delegate?.didTapProfileImage(self)
     }
     
-    @objc func handleFollowTapped(){
+    @objc func handleFollowTapped() {
         delegate?.didTapFollow(self)
     }
     

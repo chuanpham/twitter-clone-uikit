@@ -42,8 +42,6 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = .twitterBlue
         authenticateUserAndConfigureUI()
-
-        
     }
     
     // MARK: API
@@ -78,7 +76,7 @@ class MainTabController: UITabBarController {
         case .message:
             controller = SearchController(config: .message)
         case .tweet:
-            guard let user = user else {return}
+            guard let user = user else { return }
             controller = UploadTweetController(user: user, config: .tweet)
         }
 

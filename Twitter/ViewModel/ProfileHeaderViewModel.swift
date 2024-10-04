@@ -13,7 +13,7 @@ enum ProfileFilterOptions: Int, CaseIterable {
     case replies
     case likes
     
-    var description: String{
+    var description: String {
         switch self {
         case .tweets: return "Tweets"
         case .replies: return "Tweets & Replies"
@@ -39,10 +39,9 @@ struct ProfileHeaderViewModel {
         //else fugoure out following/unfollow
         if user.isCurrentUser {
             return "Edit File"
-        }else if !user.isFollowed{
+        } else if !user.isFollowed {
             return "Follow"
-            
-        }else{
+        } else {
             return "Following"
         }
     }

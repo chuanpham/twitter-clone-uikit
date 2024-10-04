@@ -8,7 +8,7 @@
 
 import UIKit
  
-struct NotificationViewModel{
+struct NotificationViewModel {
     
     private let notification: Notification
     private let type: NotificationType
@@ -34,7 +34,7 @@ struct NotificationViewModel{
     }
     
     var notificationText: NSAttributedString? {
-        guard let timestamp = timestampString else {return nil}
+        guard let timestamp = timestampString else { return nil }
         let attributedText = NSMutableAttributedString(string: user.username, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)])
         attributedText.append(NSMutableAttributedString(string: notificaionMessage, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]))
         attributedText.append(NSMutableAttributedString(string: " \(timestamp)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
@@ -49,7 +49,7 @@ struct NotificationViewModel{
         return type != .follow
     }
     
-    var followButtonText: String{
+    var followButtonText: String {
         return user.isFollowed ? "Following" : "Follow"
     }
     

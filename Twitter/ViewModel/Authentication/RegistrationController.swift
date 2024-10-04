@@ -88,31 +88,36 @@ class RegistrationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
     }
     
     //MARK: Selectors
-    @objc func handleAddProfilePhoto(){
+    @objc func handleAddProfilePhoto() {
         present(imagePicker, animated: true, completion: nil)
         print("Add Photo...")
     }
     
-    @objc func handleRegistration(){
+    @objc func handleRegistration() {
         guard let profileImage = profileImage else {
             print("DEBUG: Please select a profile image..")
             return
         }
-        guard let email = emailTextField.text else {return}
-        guard let password = passwordTextField.text else {return}
-        guard let fullname = fullnameTextField.text else {return}
-        guard let username = usernameTextField.text?.lowercased() else {return}
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let fullname = fullnameTextField.text else { return }
+        guard let username = usernameTextField.text?.lowercased() else { return }
         
-        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
+        let credentials = AuthCredentials(
+            email: email,
+            password: password,
+            fullname: fullname,
+            username: username,
+            profileImage: profileImage
+        )
         
-        AuthService.shared.registerUser(credentials: credentials) { (error, ref) in
+        AuthService.shared.registerUser(credentials: credentials) { error, ref in
             //log in successful and pange dismiss and into navigation
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow}) else {return}
-            guard let tab = window.rootViewController as? MainTabController else {return}
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow } ) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
             tab.authenticateUserAndConfigureUI()
             
             self.dismiss(animated: true, completion: nil)
@@ -120,12 +125,13 @@ class RegistrationController: UIViewController {
             
     }
     
-    @objc func handkeShowLogin(){
-        navigationController?.popViewController(animated: true)//push的pop back回来
+    @objc func handkeShowLogin() {
+        navigationController?.popViewController(animated: true)
     }
-    // MARK: helper Func
     
-    func configureUI(){
+    // MARK: Helper
+    
+    func configureUI() {
         view.backgroundColor = .twitterBlue
         
         imagePicker.delegate = self
@@ -135,23 +141,41 @@ class RegistrationController: UIViewController {
         plusPhotoButton.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
         plusPhotoButton.setDimensions(width: 128, height: 128)
         
-        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, fullnameContainerView, usernameContainerView, registrationButton])
+        let stack = UIStackView(
+            arrangedSubviews: [
+                emailContainerView,
+                passwordContainerView,
+                fullnameContainerView,
+                usernameContainerView,
+                registrationButton
+            ]
+        )
         stack.axis = .vertical
         stack.spacing = 20
         stack.distribution = .fillEqually
         
         view.addSubview(stack)
-        stack.anchor(top: plusPhotoButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32)
+        stack.anchor(
+            top: plusPhotoButton.bottomAnchor,
+            left: view.leftAnchor,
+            right: view.rightAnchor,
+            paddingTop: 32,
+            paddingLeft: 32,
+            paddingRight: 32
+        )
         
         view.addSubview(alreadyHaveAcountButton)
-        alreadyHaveAcountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 40, paddingRight: 40)
-        
-        
+        alreadyHaveAcountButton.anchor(
+            left: view.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            right: view.rightAnchor,
+            paddingLeft: 40,
+            paddingRight: 40
+        )
     }
-    
 }
 
-extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else { return }
         self.profileImage = profileImage
@@ -164,6 +188,6 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         plusPhotoButton.layer.borderWidth = 3
         self.plusPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         
-        dismiss(animated: true, completion: nil)//退出选照片action
+        dismiss(animated: true, completion: nil)
     }
 }

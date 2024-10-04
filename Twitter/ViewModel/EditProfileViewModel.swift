@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct EditProfileViewModel{
+struct EditProfileViewModel {
     
     private let user: User
     let option: EditProfileOptions
@@ -33,7 +33,7 @@ struct EditProfileViewModel{
         return  option != .bio
     }
     
-    var shouldHidePlaceHolderLabel:Bool{
+    var shouldHidePlaceHolderLabel:Bool {
         return user.bio != nil
     }
     
@@ -50,7 +50,7 @@ enum EditProfileOptions: Int, CaseIterable {
     case username
     case bio
     
-    var desciption: String{
+    var desciption: String {
         switch self {
         case .username: return "Username"
         case .fullname: return "Name"

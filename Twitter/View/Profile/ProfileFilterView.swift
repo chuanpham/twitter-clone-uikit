@@ -94,13 +94,12 @@ extension ProfileFilterView: UICollectionViewDelegate {
 
 
 //MARK: UICollectionViewDelegateFlowLayout
-extension ProfileFilterView: UICollectionViewDelegateFlowLayout{
+extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let count = CGFloat(ProfileFilterOptions.allCases.count)
         return CGSize(width: frame.width/count, height: frame.height)
     }
     
-    //栏目分割线宽度
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }

@@ -25,7 +25,7 @@ struct NotificationService {
         REF_NOTIFICATIONS.child(user.uid).childByAutoId().updateChildValues(values)
     }
     
-    fileprivate func getNotifications(uid: String, completion: @escaping([Notification])->Void) {
+    fileprivate func getNotifications(uid: String, completion: @escaping([Notification]) -> Void) {
         var notifications = [Notification]()
         REF_NOTIFICATIONS.child(uid).observe( .childAdded) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }

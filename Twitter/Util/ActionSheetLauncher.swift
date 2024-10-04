@@ -104,7 +104,7 @@ class ActionSheetLauncher: NSObject {
         }
     }
     
-    func configureTableView(){
+    func configureTableView() {
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self

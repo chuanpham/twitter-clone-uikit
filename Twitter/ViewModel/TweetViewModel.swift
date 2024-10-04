@@ -68,7 +68,7 @@ struct  TweetViewModel {
     }
     
     var replyText: String? {
-        guard let replyingToUsername = tweet.replyingTo else {return nil}
+        guard let replyingToUsername = tweet.replyingTo else { return nil }
         return "→ replying to @\(replyingToUsername)"
     }
     
@@ -78,15 +78,30 @@ struct  TweetViewModel {
         self.user = tweet.user
     }
     
-    fileprivate func attributtedText(withValue value: Int, text: String)-> NSAttributedString {
-        let attributtedTitle = NSMutableAttributedString(string: "\(value)", attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributtedTitle.append(NSAttributedString(string: " \(text)", attributes: [.font: UIFont.boldSystemFont(ofSize: 14), .foregroundColor: UIColor.lightGray]))
+    fileprivate func attributtedText(withValue value: Int, text: String) -> NSAttributedString {
+        let attributtedTitle = NSMutableAttributedString(
+            string: "\(value)",
+            attributes: [.font: UIFont.boldSystemFont(
+                ofSize: 14
+            )]
+        )
+        attributtedTitle.append(
+            NSAttributedString(
+                string: " \(text)",
+                attributes: [
+                    .font: UIFont.boldSystemFont(
+                        ofSize: 14
+                    ),
+                    .foregroundColor: UIColor.lightGray
+                ]
+            )
+        )
         
         return attributtedTitle
     }
     
     //MARK: Helpers
-    func size(forWidth width: CGFloat) -> CGSize{
+    func size(forWidth width: CGFloat) -> CGSize {
         let measurementLabel = UILabel()
         measurementLabel.text = tweet.caption
         measurementLabel.numberOfLines = 0

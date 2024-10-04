@@ -13,7 +13,7 @@ class ActionSheetCell: UITableViewCell {
     
     //MARK: properties
     var option: ActionSheetOptions? {
-        didSet{configure()}
+        didSet { configure() }
     }
     
     private let optionImageView: UIImageView = {

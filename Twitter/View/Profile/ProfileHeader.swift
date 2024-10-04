@@ -17,8 +17,8 @@ protocol ProfileHeaderDelegate: AnyObject {
 class ProfileHeader: UICollectionReusableView {
     //MARK: Properties
     
-    var user: User?{
-        didSet{configure()}
+    var user: User? {
+        didSet { configure() }
     }
     
     weak var delegate: ProfileHeaderDelegate?
@@ -156,26 +156,26 @@ class ProfileHeader: UICollectionReusableView {
     //MARK: Selelctors
     
     //back arrow
-    @objc func handleDismissal(){
+    @objc func handleDismissal() {
         delegate?.handleDismissal()
     }
     
-    @objc func handleEditProfileFollow(){
+    @objc func handleEditProfileFollow() {
         delegate?.handleEditProfileFollow(self)
     }
     
-    @objc func handleFollowersTapped(){
+    @objc func handleFollowersTapped() {
         
     }
     
-    @objc func handleFollowingTapped(){
+    @objc func handleFollowingTapped() {
         
     }
     
     // MARK: Helpers
     
-    func configure(){
-        guard let user = user else {return}
+    func configure() {
+        guard let user = user else { return }
         let viewModel = ProfileHeaderViewModel(user: user)
 
         profileImageView.sd_setImage(with: user.profileImageUrl)
@@ -192,7 +192,7 @@ class ProfileHeader: UICollectionReusableView {
 
 extension ProfileHeader: ProfileFilterViewDelegate {
     func filterView(_ view: ProfileFilterView, didSelect index: Int) {
-        guard let filter = ProfileFilterOptions(rawValue: index) else {return}
+        guard let filter = ProfileFilterOptions(rawValue: index) else { return }
         
         print("DEBUG:  Delegate action from header to controller with filter \(filter.description)")
         

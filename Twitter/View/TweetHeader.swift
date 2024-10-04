@@ -17,8 +17,8 @@ protocol TweetHeaderDelegate: AnyObject {
 class TweetHeader: UICollectionReusableView {
     //MARK: properties
     
-    var tweet: Tweet?{
-        didSet{configure()}
+    var tweet: Tweet? {
+        didSet { configure() }
     }
     
     weak var delegate: TweetHeaderDelegate?
@@ -190,34 +190,34 @@ class TweetHeader: UICollectionReusableView {
     
     // MARK: Selectors
     
-    @objc func handleProfileImageTapped(){
+    @objc func handleProfileImageTapped() {
          print("DEBUG: Go to user profile..")
     }
     
-    @objc func showActionSheet(){
+    @objc func showActionSheet() {
         delegate?.showActionSheet()
     }
     
-    @objc func handleCommentTapped(){
+    @objc func handleCommentTapped() {
         
     }
     
-    @objc func handleRetweetTapped(){
+    @objc func handleRetweetTapped() {
         
     }
     
-    @objc func handleLikeTapped(){
+    @objc func handleLikeTapped() {
         
     }
     
-    @objc func handleShareTapped(){
+    @objc func handleShareTapped() {
         
     }
     
     //MARK: helpers
     
-    func configure(){
-        guard let tweet = tweet else {return}
+    func configure() {
+        guard let tweet = tweet else { return }
         let viewModel = TweetViewModel(tweet: tweet)
         
         captionLabel.text = tweet.caption
@@ -243,7 +243,7 @@ class TweetHeader: UICollectionReusableView {
         return button
     }
     
-    func configureMentionHandler(){
+    func configureMentionHandler() {
         captionLabel.handleMentionTap {username in
             self.delegate?.handleFetchUser(withUsername: username)
         }

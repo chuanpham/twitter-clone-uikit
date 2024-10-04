@@ -12,7 +12,7 @@ import UIKit
 class UserCell: UITableViewCell {
     // Mark: Properties
     var user: User? {
-        didSet{configure()}
+        didSet { configure() }
     }
 
     private lazy var profileImageView: UIImageView = {

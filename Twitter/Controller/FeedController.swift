@@ -11,7 +11,7 @@ import SDWebImage
 
 private let reuseIdentifier = "TweetCell"
 
-class FeedController: UICollectionViewController{
+class FeedController: UICollectionViewController {
     // MARK: Properties
     
     var user: User? {
@@ -47,7 +47,7 @@ class FeedController: UICollectionViewController{
     }
     
     @objc func handleProfileImageTap() {
-        guard let user = user else {return}
+        guard let user = user else { return }
         
         let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
@@ -60,7 +60,7 @@ class FeedController: UICollectionViewController{
         collectionView.refreshControl?.beginRefreshing()
         TweetService.shared.fetchTweets { tweets in
             //sort tweets by timestamp
-            self.tweets = tweets.sorted(by: {$0.timestamp > $1.timestamp})
+            self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp } )
             self.checkIfUserLikedTweets()
             self.collectionView.refreshControl?.endRefreshing()
         }
@@ -166,9 +166,11 @@ extension FeedController: TweetCellDelegate {
             cell.tweet?.likes = likes
 
             guard !tweet.didLike else { return }
-            NotificationService.shared.uploadNotification(toUser: tweet.user,
-                                                          type: .like,
-                                                          tweetID: tweet.tweetID)
+            NotificationService.shared.uploadNotification(
+                toUser: tweet.user,
+                type: .like,
+                tweetID: tweet.tweetID
+            )
         }  
     }
     

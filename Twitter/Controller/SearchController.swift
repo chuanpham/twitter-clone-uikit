@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "UserCell"
 
-enum SearchControllerConfiguration{
+enum SearchControllerConfiguration {
     case message
     case userSearch
 }
@@ -21,11 +21,11 @@ class SearchController: UITableViewController {
     private let config: SearchControllerConfiguration
     
     private var users = [User]() {
-        didSet {tableView.reloadData()}
+        didSet { tableView.reloadData() }
     }
     
     private var filteredUsers = [User]() {
-        didSet { tableView.reloadData()}
+        didSet { tableView.reloadData() }
     }
     
     private var inSearchMode: Bool {
@@ -124,7 +124,7 @@ extension SearchController {
 //MARK:UISearchResultsUpdating
 extension SearchController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text?.lowercased() else {return}
+        guard let searchText = searchController.searchBar.text?.lowercased() else { return }
         filteredUsers = users.filter({
             $0.username.contains(searchText)
         })

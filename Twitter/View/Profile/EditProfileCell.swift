@@ -17,7 +17,7 @@ class EditProfileCell: UITableViewCell {
     //MARK: properties
     
     var viewModel: EditProfileViewModel? {
-        didSet {confiqure()}
+        didSet { confiqure() }
     }
     
     weak var delegate: EditProfileCellDelegate?
@@ -74,7 +74,7 @@ class EditProfileCell: UITableViewCell {
     
        //MARK: Slelectors
 
-    @objc func handleUpdateUserInfo(){
+    @objc func handleUpdateUserInfo() {
         delegate?.updateUserInfo(self)
     }
     
@@ -82,7 +82,7 @@ class EditProfileCell: UITableViewCell {
        
        
        // MARK: helpers
-    func confiqure(){
+    func confiqure() {
         guard let viewModel = viewModel else {return}
         
         infoTextField.isHidden = viewModel.shouldHideTextField

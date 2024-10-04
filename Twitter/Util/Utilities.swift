@@ -10,7 +10,7 @@ import UIKit
 
 class Utilities{
     
-    func inputContainerView(withImage image: UIImage, textField: UITextField)-> UIView {
+    func inputContainerView(withImage image: UIImage, textField: UITextField) -> UIView {
         let view = UIView()
         let iv = UIImageView()
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true

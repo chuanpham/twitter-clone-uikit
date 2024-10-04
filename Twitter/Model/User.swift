@@ -10,11 +10,11 @@ import Firebase
 
 
 struct User {
-    var fullname:String
-    let email:String
-    var username:String
-    var profileImageUrl:URL?
-    let uid:String
+    var fullname: String
+    let email: String
+    var username: String
+    var profileImageUrl: URL?
+    let uid: String
     var isFollowed = false
     var stats: UserRelationStats?
     var bio: String?

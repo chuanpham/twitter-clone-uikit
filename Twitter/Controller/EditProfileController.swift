@@ -61,7 +61,7 @@ class EditProfileController: UITableViewController {
     
     @objc func handleDone() {
         view.endEditing(true)
-        guard imageChanged || userInfoChanged else {return}
+        guard imageChanged || userInfoChanged else { return }
         
         updateUserData()
     }
@@ -76,14 +76,14 @@ class EditProfileController: UITableViewController {
         
         if userInfoChanged && !imageChanged {
             print("DEBUG: Changed date and not image")
-            UserService.shared.saveUserData(user: user) { (err, ref) in
+            UserService.shared.saveUserData(user: user) { err, ref in
                 self.delegate?.controller(self, wantsToUpdate: self.user)
             }
         }
         
         if userInfoChanged && imageChanged {
             print("DEBUG: Changed both")
-            UserService.shared.saveUserData(user: user) { (err, ref) in
+            UserService.shared.saveUserData(user: user) { err, ref in
                 self.updateProfileImage()
             }
         }
@@ -141,7 +141,7 @@ extension EditProfileController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! EditProfileCell
         
         cell.delegate = self
-        guard let option = EditProfileOptions(rawValue: indexPath.row) else {return cell}
+        guard let option = EditProfileOptions(rawValue: indexPath.row) else { return cell }
         cell.viewModel = EditProfileViewModel(user: user, option: option)
         
         return cell
@@ -151,7 +151,7 @@ extension EditProfileController {
 // MARK: UITableView Delegate
 extension EditProfileController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let option = EditProfileOptions(rawValue: indexPath.row) else {return 0}
+        guard let option = EditProfileOptions(rawValue: indexPath.row) else { return 0 }
         return option == .bio ? 100 : 48
     }
 }
@@ -162,7 +162,7 @@ extension EditProfileController: EditProfileHeaderDelegate {
     }
 }
 
-//MARK:UIImagePickerControllerDelegate
+//MARK: UIImagePickerControllerDelegate
 extension  EditProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -176,7 +176,7 @@ extension  EditProfileController: UIImagePickerControllerDelegate, UINavigationC
 // MARK: EditProfileCellDelegate
 extension EditProfileController: EditProfileCellDelegate {
     func updateUserInfo(_ cell: EditProfileCell) {
-        guard let viewModel = cell.viewModel else {return}
+        guard let viewModel = cell.viewModel else { return }
         userInfoChanged = true
         navigationItem.rightBarButtonItem?.isEnabled = true
         
@@ -193,7 +193,7 @@ extension EditProfileController: EditProfileCellDelegate {
     }
 }
 
-//MARK:EditProfileFooterDelegate
+//MARK: EditProfileFooterDelegate
 extension EditProfileController: EditProfileFooterDelegate {
     func handleLogout() {
         let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)

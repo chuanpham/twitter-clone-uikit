@@ -64,7 +64,7 @@ class EditProfileHeader: UIView {
     
     //MARK: Selectors
     
-    @objc func handleChangeProfilePhoto(){
+    @objc func handleChangeProfilePhoto() {
         delegate?.didTapChangeProfilePhoto()
     }
     

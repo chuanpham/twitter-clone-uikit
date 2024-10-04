@@ -31,7 +31,7 @@ struct Notification {
             self.tweetID = tweetID
         }
         
-        if let timestamp = dictionary["timestamp"] as? Double{
+        if let timestamp = dictionary["timestamp"] as? Double {
             self.timestamp = Date(timeIntervalSince1970: timestamp)
         }
         if let type = dictionary["type"] as? Int {
