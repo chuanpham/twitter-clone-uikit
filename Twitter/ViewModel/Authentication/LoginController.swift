@@ -10,6 +10,14 @@ import UIKit
 
 class LoginController: UIViewController {
     // MARK: Properties
+    
+    private let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.tintColor = .label
+        spinner.style = .large
+        return spinner
+    }()
+    
     private let logoImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
@@ -65,30 +73,31 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-
     }
     
     // MARK: selectors
     
-    @objc func handleLogin(){
-        guard let email = emailTextField.text else {return}
-        guard let password = passwordTextField.text else {return}
-        AuthService.shared.logUserIn(withEmail: email, password: password) { (result, error) in
+    @objc func handleLogin() {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        spinner.startAnimating()
+        AuthService.shared.logUserIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 print("DEBUG: Error log in \(error.localizedDescription)")
+                self.spinner.stopAnimating()
+                self.showAlertDialog(errMsg: "Invalid login credentials")
                 return
             }
-            //log in successful and pange dismiss and into navigation
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow}) else {return}
-            guard let tab = window.rootViewController as? MainTabController else {return}
+            //log in successfully and page dismiss and into navigation
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow } ) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
             tab.authenticateUserAndConfigureUI()
-            
+            self.spinner.stopAnimating()
             self.dismiss(animated: true, completion: nil)
-
         }
     }
     
-    @objc func handkeShowSignUp(){
+    @objc func handkeShowSignUp() {
         let controller = RegistrationController()
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -96,7 +105,7 @@ class LoginController: UIViewController {
     
     // MARK: helper Func
     
-    func configureUI(){
+    func configureUI() {
         view.backgroundColor = .twitterBlue
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true
@@ -114,7 +123,31 @@ class LoginController: UIViewController {
         stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
         
         view.addSubview(dontHaveAcountButton)
-        dontHaveAcountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 40, paddingRight: 40)
+        dontHaveAcountButton.anchor(
+            left: view.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            right: view.rightAnchor,
+            paddingLeft: 40,
+            paddingRight: 40
+        )
+        
+        view.addSubview(spinner)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.anchor(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            left: view.safeAreaLayoutGuide.leftAnchor,
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            right: view.safeAreaLayoutGuide.rightAnchor
+        )
     }
-
+    
+    func showAlertDialog(errMsg: String) {
+        let alert = UIAlertController(title: "Information", message: errMsg, preferredStyle: .alert)
+        alert.view.tintColor = .blue
+        let actionOK = UIAlertAction(title: "Ok", style: .default) { _ in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(actionOK)
+        present(alert, animated: true, completion: nil)
+    }
 }
